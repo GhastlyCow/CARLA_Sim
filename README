@@ -1,0 +1,16 @@
+This is some example code for Carla that has an ego vehicle driving straight with several NPC vehicles around it.
+
+This was made for Carla 0.9.15 and runs on Town06 in Python 3.8.0.
+
+Instructions to run code:
+
+1. First install Carla 0.9.15 (https://github.com/carla-simulator/carla/releases)
+2. Then download the additional maps package (https://github.com/carla-simulator/carla/releases)
+   - You must extract the additonal maps zip file in the root folder of your windows Carla installation for it to work
+3. Install carla (pip install carla)
+
+After completing these steps, running test_setup_1.py should spawn in an ego vehicle and 6 NPC vehicles on autopilot. These vehicles will drive for 20 seconds before the code finishes.
+
+The ego vehicle will just drive forward in lane 2 of the highway. There will be several NPC vehicles, 2 of which are told to drive over the speed limit and more aggresively than the other NPC's.
+
+traffic_manager_testing.py was used for initial testing and debugging of the traffic manager in Carla. This is the carla method used to control the NPC vehicles.
