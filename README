@@ -8,6 +8,7 @@ Instructions to run code:
 2. Then download the additional maps package (https://github.com/carla-simulator/carla/releases)
    - You must extract the additonal maps zip file in the root folder of your windows Carla installation for it to work
 3. Install carla (pip install carla)
+4. place test_setup_1.py and traffic_manager_testing.py in ./PythonAPI/Examples
 
 After completing these steps, running test_setup_1.py should spawn in an ego vehicle and 6 NPC vehicles on autopilot. These vehicles will drive for 20 seconds before the code finishes.
 
