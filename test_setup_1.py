@@ -25,6 +25,8 @@ def main():
         client.set_timeout(20.0)
         client.load_world("Town06")
         world = client.get_world()
+        spectator = world.get_spectator()
+        spectator.set_transform(carla.Transform(carla.Location(x=155.4,y=162.4, z=20),carla.Rotation(pitch=-30, yaw=-20, roll=0.000000)))
 
         blueprint_library = world.get_blueprint_library()
         ego_bp = blueprint_library.filter("model3")[0]
@@ -34,7 +36,7 @@ def main():
         ego_vehicles.append(ego_vehicle)
         
 
-        ego_vehicle.apply_control(carla.VehicleControl(throttle=0.33, steer=0.0))
+        ego_vehicle.apply_control(carla.VehicleControl(throttle=0.42, steer=0.0))
 
 
         tm = client.get_trafficmanager()
@@ -51,24 +53,27 @@ def main():
 
         max_vehicles = len(specified_spawn_points)
 
-        for i, spawn_point in enumerate(random.sample(specified_spawn_points, max_vehicles)):
-            temp = world.try_spawn_actor(random.choice(npc_blueprints), spawn_point)
-            if temp is not None:
-                actor_list.append(temp)
 
-        for vehicle in actor_list:
-            vehicle.set_autopilot(True)
+        while True:
+            world.tick()
 
+            for i, spawn_point in enumerate(random.sample(specified_spawn_points, max_vehicles)):
+                temp = world.try_spawn_actor(random.choice(npc_blueprints), spawn_point)
+                if temp is not None:
+                    actor_list.append(temp)
 
-        danger_car1 = actor_list[0]
-        danger_car2 = actor_list[1]
+            for vehicle in actor_list:
+                vehicle.set_autopilot(True)
 
-        tm.distance_to_leading_vehicle(danger_car1, 0)
-        tm.vehicle_percentage_speed_difference(danger_car1, -20)
-        tm.distance_to_leading_vehicle(danger_car2, 0)
-        tm.vehicle_percentage_speed_difference(danger_car2, -20)
+            time.sleep(5)
 
-        time.sleep(20)
+            danger_car1 = random.choice(actor_list)
+            danger_car2 = random.choice(actor_list)
+
+            tm.distance_to_leading_vehicle(danger_car1, 0)
+            tm.vehicle_percentage_speed_difference(danger_car1, -20)
+            tm.distance_to_leading_vehicle(danger_car2, 0)
+            tm.vehicle_percentage_speed_difference(danger_car2, -20)
 
     finally:
 
