@@ -67,6 +67,11 @@ def main():
 
             time.sleep(5)
 
+            for vehicle in actor_list:
+                location = vehicle.get_location()
+                if location.x > 450:
+                    vehicle.destroy()
+
             danger_car1 = random.choice(actor_list)
             danger_car2 = random.choice(actor_list)
 
@@ -74,6 +79,11 @@ def main():
             tm.vehicle_percentage_speed_difference(danger_car1, -20)
             tm.distance_to_leading_vehicle(danger_car2, 0)
             tm.vehicle_percentage_speed_difference(danger_car2, -20)
+
+            # npc_data = random.choice(actor_list)
+            # print(npc_data.get_location())
+            # print(npc_data.get_velocity())
+            # print(npc_data.get_acceleration())
 
     finally:
 
